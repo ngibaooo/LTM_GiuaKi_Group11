@@ -2,6 +2,7 @@ import random
 
 # Danh sách lựa chọn trong trò chơi
 choices = ["rock", "paper", "scissors"]
+
 # Hàm xử lý kết quả trò chơi
 def determine_winner(player1_choice, player2_choice):
     """
@@ -16,3 +17,10 @@ def determine_winner(player1_choice, player2_choice):
         return "Player 1 wins"
     else:
         return "Player 2 wins"
+
+# Hàm kiểm tra tính hợp lệ của lựa chọn
+def is_valid_choice(choice):
+    """
+    Kiểm tra xem lựa chọn của người chơi có hợp lệ không (rock, paper, scissors)
+    """
+    return choice in choices
