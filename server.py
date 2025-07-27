@@ -4,6 +4,10 @@ import threading
 HOST = '0.0.0.0'
 PORT = 12345
 
+def connect_client():
+
+def logic_game():
+
 
 def main():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
