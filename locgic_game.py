@@ -2,3 +2,11 @@ import random
 
 # Danh sách lựa chọn trong trò chơi
 choices = ["rock", "paper", "scissors"]
+# Hàm xử lý kết quả trò chơi
+def determine_winner(player1_choice, player2_choice):
+    """
+    Xác định kết quả trò chơi giữa Player 1 và Player 2.
+    Trả về kết quả: "Player 1 wins", "Player 2 wins", hoặc "Draw"
+    """
+    if player1_choice == player2_choice:
+        return "Draw"
