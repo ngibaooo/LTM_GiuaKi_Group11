@@ -34,3 +34,13 @@ def get_player_choice(player_number):
         else:
             print("Invalid choice. Please choose rock, paper, or scissors.")
 
+
+# Hàm xử lý game logic giữa Player 1 và Player 2
+def play_game(player1_choice, player2_choice):
+    """
+    Hàm chính để chơi game, nhận lựa chọn của Player 1 và Player 2 và trả về kết quả trò chơi.
+    """
+    # Xác định kết quả trò chơi
+    result = determine_winner(player1_choice, player2_choice)
+    
+    return f"Player 1 chose: {player1_choice}\nPlayer 2 chose: {player2_choice}\nResult: {result}"
