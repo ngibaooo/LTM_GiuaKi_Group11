@@ -24,3 +24,13 @@ def is_valid_choice(choice):
     Kiểm tra xem lựa chọn của người chơi có hợp lệ không (rock, paper, scissors)
     """
     return choice in choices
+
+# Hàm yêu cầu người chơi nhập lại nếu lựa chọn không hợp lệ
+def get_player_choice(player_number):
+    while True:
+        choice = input(f"Player {player_number}, enter your choice (rock, paper, or scissors): ").lower()
+        if is_valid_choice(choice):
+            return choice
+        else:
+            print("Invalid choice. Please choose rock, paper, or scissors.")
+
