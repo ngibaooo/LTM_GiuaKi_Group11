@@ -44,3 +44,11 @@ def play_game(player1_choice, player2_choice):
     result = determine_winner(player1_choice, player2_choice)
     
     return f"Player 1 chose: {player1_choice}\nPlayer 2 chose: {player2_choice}\nResult: {result}"
+if __name__ == "__main__":
+    # Lựa chọn của Player 1 và Player 2
+    player1_choice = get_player_choice(1)
+    player2_choice = get_player_choice(2)
+
+    # Chạy game và in kết quả
+    result = play_game(player1_choice, player2_choice)
+    print(result)
