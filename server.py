@@ -9,6 +9,12 @@ PORT = 12345
 # Danh sách client đang chờ
 waiting_clients = []
 
+def handle_client(conn, addr, player_id, opponent_conn):
+    try:
+        conn.sendall(b"Please enter your choice (rock, paper, or scissors): ")
+        choice = conn.recv(1024).decode().strip().lower()
+    except:
+        return None
 
 def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
