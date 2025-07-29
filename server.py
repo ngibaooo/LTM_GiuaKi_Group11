@@ -15,6 +15,25 @@ def handle_client(conn, addr, player_id, opponent_conn):
         choice = conn.recv(1024).decode().strip().lower()
     except:
         return None
+    
+def game_session(player1_conn, player1_addr, player2_conn, player2_addr):
+    try:
+        player1_choice = handle_client(player1_conn, player1_addr, 1, player2_conn)
+        player2_choice = handle_client(player2_conn, player2_addr, 2, player1_conn)
+
+        if not player1_choice or not player2_choice:
+            player1_conn.sendall(b"Connection error or invalid input.\n")
+            player2_conn.sendall(b"Connection error or invalid input.\n")
+        else:
+            result = determine_winner(player1_choice, player2_choice)
+            result_msg = f"\nPlayer 1 chose: {player1_choice}\nPlayer 2 chose: {player2_choice}\nResult: {result}\n"
+            player1_conn.sendall(result_msg.encode())
+            player2_conn.sendall(result_msg.encode())
+
+    finally:
+        player1_conn.close()
+        player2_conn.close()
+
 
 def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
