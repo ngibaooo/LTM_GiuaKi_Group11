@@ -26,7 +26,7 @@ def game_session(player1_conn, player1_addr, player2_conn, player2_addr):
             player2_conn.sendall(b"Connection error or invalid input.\n")
         else:
             result = determine_winner(player1_choice, player2_choice)
-            result_msg = f"\nPlayer 1 chose: {player1_choice}\nPlayer 2 chose: {player2_choice}\nResult: {result}\n"
+            result_msg = f"\nPlayer 1 choose: {player1_choice}\nPlayer 2 choose: {player2_choice}\nResult: {result}\n"
             player1_conn.sendall(result_msg.encode())
             player2_conn.sendall(result_msg.encode())
 
@@ -39,12 +39,20 @@ def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         s.listen()
-        print(f"✅ Server listening on {HOST}:{PORT}...")
+        print(f"Server listening on {HOST}:{PORT}...")
 
         while True:
             conn, addr = s.accept()
-            print(f"🔌 Client connected from {addr}")
+            print(f"Client connected from {addr}")
             waiting_clients.append((conn, addr))
+            if len(waiting_clients) >= 2:
+                player1 = waiting_clients.pop(0)
+                player2 = waiting_clients.pop(0)
+                game_thread = threading.Thread(
+                    target=game_session,
+                    args=(player1[0], player1[1], player2[0], player2[1])
+                )
+                game_thread.start()
 
 if __name__ == "__main__":
     main()
