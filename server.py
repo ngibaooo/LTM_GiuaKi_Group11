@@ -11,8 +11,19 @@ waiting_clients = []
 
 def handle_client(conn, addr, player_id, opponent_conn):
     try:
-        conn.sendall(b"Please enter your choice (rock, paper, or scissors): ")
-        choice = conn.recv(1024).decode().strip().lower()
+        while True:
+            conn.sendall(b"Please enter your choice (rock, paper, or scissors): ")
+            choice = conn.recv(1024).decode().strip().lower()
+
+            if not choice:
+                conn.sendall(b"No input received.\n")
+                continue
+
+            if is_valid_choice(choice):
+                print(f"Player {player_id} ({addr}) choose: {choice}")
+                return choice  # Chỉ return khi hợp lệ
+            else:
+                conn.sendall(b"Invalid choice. Please choose again (rock, paper, or scissors).\n")
     except:
         return None
     
