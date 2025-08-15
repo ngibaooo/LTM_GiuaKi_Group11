@@ -56,6 +56,12 @@ def main():
             conn, addr = s.accept()
             print(f"Client connected from {addr}")
             waiting_clients.append((conn, addr))
+            
+            # Nếu mới chỉ có 1 người kết nối
+            if len(waiting_clients) == 1:
+                conn.sendall(b"Waiting for another player to join...\n")
+
+            # Khi đủ 2 người thì bắt đầu game
             if len(waiting_clients) >= 2:
                 player1 = waiting_clients.pop(0)
                 player2 = waiting_clients.pop(0)
@@ -64,6 +70,7 @@ def main():
                     args=(player1[0], player1[1], player2[0], player2[1])
                 )
                 game_thread.start()
+
 
 if __name__ == "__main__":
     main()
